@@ -53,6 +53,29 @@ func findMerge(headA: Node?, headB: Node?) -> Int? {
     return nil
 }
 
+func findMergeBrute(headA: Node?, headB: Node?) -> Int? {
+    
+    let lenghtofA = length(headA)
+    let lenghtofB = length(headB)
+    
+    var currentA = headA
+    
+    for _ in 0..<lenghtofA {
+        let a = currentA?.data
+        var currentB = headB
+        for _ in 0..<lenghtofB {
+            let b = currentB?.data
+            if a == b {
+                return a
+            }
+            currentB = currentB?.next
+        }
+        currentA = currentA?.next
+    }
+    
+    return nil
+}
+
 // 1 2 3 4 5 6
 let node6 = Node(6)
 let node5 = Node(5, node6)
@@ -69,3 +92,4 @@ printLinkedList(node1)
 printLinkedList(node10)
 
 findMerge(headA: node1, headB: node10)
+findMergeBrute(headA: node1, headB: node10)
