@@ -17,8 +17,34 @@ import Foundation
  */
 
 public func solution(_ A : [String], _ B : [String], _ P : String) -> String {
-    // do your work here
-    return ""
+    
+    struct Person {
+        let name: String
+        let number: String
+    }
+    
+    var contacts = [Person]()
+    
+    var foundContacts = [Person]()
+    
+    for (index, contactName) in A.enumerated() {
+        contacts.append(
+            Person(
+                name: contactName,
+                number: B[index]
+            )
+        )
+    }
+    
+    foundContacts = contacts
+        .filter { person in
+            person.number.contains(P) || person.name.contains(P)
+        }
+        .sorted(by: { p1, p2  in
+            p1.name < p2.name
+        })
+    
+    return foundContacts.first?.name ?? "NO CONTACT"
 }
 
 let A = ["pim", "pom"]

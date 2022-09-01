@@ -17,8 +17,16 @@ import UIKit
  */
 
 func solution(A: [Int], K: Int) -> [Int] {
-    // do your work here...
-    return [Int]()
+    var rotatedCollection = A
+    for _ in 1..<K {
+        rotatedCollection
+            .insert(
+                rotatedCollection
+                    .removeLast(),
+                at: 0
+            )
+    }
+    return rotatedCollection
 }
 
 solution(A: [1, 2, 3, 4, 5], K: 1) // 5 1 2 3 4
