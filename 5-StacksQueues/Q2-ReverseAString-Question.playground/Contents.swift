@@ -8,8 +8,17 @@ import UIKit
  */
 
 func solution(_ text: String) -> String {
-    // Do your work here... 
-    return ""
+    
+    var arrayOfChar = Array(text)
+    
+    var count = 0
+    
+    while count < arrayOfChar.count {
+        arrayOfChar.insert(arrayOfChar.removeLast(), at: count)
+        count += 1
+    }
+    
+    return String(arrayOfChar)
 }
 
 solution("abc") // bca
