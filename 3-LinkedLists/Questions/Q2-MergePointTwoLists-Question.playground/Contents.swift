@@ -53,6 +53,37 @@ func findMerge(headA: Node?, headB: Node?) -> Int? {
     return nil
 }
 
+func findMergeSpace(headA: Node?, headB: Node?) -> Int? {
+    let start = DispatchTime.now()
+    let m = length(headA)
+    let n = length(headB)
+    
+    var dict = [Int?:Bool]()
+    var currentB = headB
+    
+    for _ in 0..<n {
+        let b = currentB?.data
+        dict[b] = true
+        currentB = currentB?.next
+    }
+    
+    var currentA = headA
+    for _ in 0..<m {
+        let a = currentA?.data
+        if dict[a] == true {
+            let end = DispatchTime.now()
+            calculateTime(start: start, end: end, function: #function)
+            return a
+        }
+        currentA = currentA?.next
+    }
+    
+    let end = DispatchTime.now()
+    calculateTime(start: start, end: end, function: #function)
+    
+    return nil
+}
+
 func findMergeBrute(headA: Node?, headB: Node?) -> Int? {
     
     let lenghtofA = length(headA)
@@ -60,12 +91,16 @@ func findMergeBrute(headA: Node?, headB: Node?) -> Int? {
     
     var currentA = headA
     
+    let start = DispatchTime.now()
+    
     for _ in 0..<lenghtofA {
         let a = currentA?.data
         var currentB = headB
         for _ in 0..<lenghtofB {
             let b = currentB?.data
             if a == b {
+                let end = DispatchTime.now()
+                calculateTime(start: start, end: end, function: #function)
                 return a
             }
             currentB = currentB?.next
@@ -73,6 +108,8 @@ func findMergeBrute(headA: Node?, headB: Node?) -> Int? {
         currentA = currentA?.next
     }
     
+    let end = DispatchTime.now()
+    calculateTime(start: start, end: end, function: #function)
     return nil
 }
 
@@ -93,3 +130,15 @@ printLinkedList(node10)
 
 findMerge(headA: node1, headB: node10)
 findMergeBrute(headA: node1, headB: node10)
+
+findMergeSpace(headA: node1, headB: node10)
+
+
+func calculateTime(start: DispatchTime, end: DispatchTime, function: String) {
+
+        let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
+        let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
+
+        print("Time to evaluate problem \(function): \(timeInterval) seconds")
+    
+}
